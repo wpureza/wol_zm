@@ -1,0 +1,47 @@
+{% extends "header.html" %}
+
+{% block body %}
+
+<script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script type="text/javascript" src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
+<link rel="stylesheet" type="text/css" href="/static/css/w3.css">
+<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+
+{% if addhost %}
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br>
+
+<link rel="stylesheet" type="text/css" href="/static/css/rtaTable.css">
+<div class="container-fluid" align="center" style="min-height:100%">
+    <table id="adddev">
+        <caption><font color="Ivory"><h3></h3></font></caption>
+        <thead>
+        <th><center>URL</center><th><center>API Version</center><th>
+        <tbody>
+    <tr>
+    </tr>
+    </tbody>
+    </table>
+</div>
+{% endif %}
+
+<form>
+    <div class="login">
+        <div class="login-screen">
+                <input type="button" value="Add Device" class="btn btn-primary btn-large btn-block " onclick="document.getElementById('id01').style.display='block'">
+            </div>
+        </div>
+    </div>
+</form>
+
+<!--<button  onclick="document.getElementById('id01').style.display='block'" class="btn btn-primary btn-block ">-->
+<!--    Add Device-->
+<!--</button>-->
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "header.html" %}
+
+{% block body %}
+
+<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+<font color="Ivory"><h3>Configuração de Dispositivos</h3></font>
+
+<div class="container-fluid" align="center" style="min-height:100%">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <font color="Green"> <h3>{{ message }}</h3></font>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+
+<form action="/dev/conf" method="POST">
+    <div class="login">
+        <div class="login-screen">
+            <div class="app-title">
+
+            </div>
+            <div class="login-form">
+                <div class="control-group">
+                    <input type="text" class="login-field" value="{{request.form.device }}" placeholder="Endereço IP: 192.168.0.1" name="device">
+                </div>
+                <div class="control-group">
+                    <input type="text" class="login-field" value="{{request.form.port }}" placeholder="Porta SSH/Telnet: 22" name="port">
+                    <label class="login-field-icon fui-user" for="login-name"></label>
+                </div>
+                <div class="control-group">
+                    <input type="text" class="login-field" value="{{request.form.username }}" placeholder="username" name="username">
+                    <label class="login-field-icon fui-user" for="login-name"></label>
+                </div>
+                <div class="control-group">
+                    <input type="password" class="login-field" value="{{request.form.password }}" placeholder="password" name="password">
+                    <label class="login-field-icon fui-lock" for="login-pass"></label>
+                </div>
+                <div class="control-group">
+                    <input type="text" class="login-field" value="{{request.form.desc }}" placeholder="Descrição" name="desc">
+                    <label class="login-field-icon fui-user" for="login-name"></label>
+                </div>
+                <input type="submit" value="Adicionar" class="btn btn-primary btn-large btn-block " onclick="$('#loading').show();">
+            </div>
+        </div>
+    </div>
+</form>
+<br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br>
+<br>
+<div id="loading" align="center" style="display:none;">
+  <img src="{{ url_for('static', filename = 'images/icons/loading.gif') }}" alt="" width="64" height="64" />
+</div>
+
+{% endblock %}

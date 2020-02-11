@@ -1,0 +1,98 @@
+{% extends "header.html" %}
+
+{% block body %}
+<font color="Beige">
+	<h3>Agendar Wake on LAN</h3>
+</font>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript" src="{{ url_for('static', filename = 'js/rta.js') }}"></script>
+<script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script type="text/javascript" src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
+<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+<script type="text/javascript" src="{{ url_for('static', filename = 'js/modal.js') }}"></script>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<font color="Crimson">
+	<h3>{{ message }}</h3>
+</font>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+{% if devs %}
+<form id="form" action="/wol/agendar?action=sched" method="POST">
+	<div class="login">
+		<div class="login-screen">
+			<div class="app-title">
+
+			</div>
+
+			<br><br><br>
+			<div class="control-group">
+				<input class="input" id="end" type="text" name="end" value="{{request.form.end }}" placeholder="DD/MM/AAAA">
+			</div>
+			<br>
+			<input id="time" class="input" type="time" name="time" value="{{request.form.time }}">
+			<br><br>
+
+            <div class="control-group">
+					<select name="device" >
+						{% for dict in devs%}
+						<option class="input" value="{{dict['hostname']}}::{{dict['ip']}}::{{dict['port']}}">{{dict['hostname']}} ({{dict['ip']}}:{{dict['port']}})</option>
+						{% endfor %}
+					</select>
+			</div>
+
+            <br>
+
+			<input id="submit" type="submit" class="btn btn-primary btn-large btn-block" value="Agendar" onclick="$('#loading').show();">
+			</center>
+		</div>
+
+	</div>
+	</div>
+</form>
+
+<div id="loading" align="center" style="display:none;">
+	<img src="{{ url_for('static', filename = 'images/icons/loading.gif') }}" alt="" width="64" height="64" />
+</div>
+{% endif %}
+
+{% if action %}
+<link rel="stylesheet" type="text/css" href="/static/css/modal.css">
+
+<div id="id01" class="modal" style="display:block;">
+	<!-- Modal content -->
+	<div class="modal-content">
+		<!--    <span class="close">&times;</span>-->
+		<form action="/wol/agendar?action=login&hostname={{action[0]}}&ip={{action[1]}}&port={{action[2]}}&data={{action[3]}}&time={{action[4]}}" method="POST">
+
+			<div class="app-title">
+				<center><h1>Login</h1></center>
+			</div>
+			<div class="login-form">
+				<input type="text" value="{{request.form.hostname }}" placeholder="{{action[0]}}" name="hostname" disabled>
+				<br><br>
+				<input type="text" value="{{request.form.ip_port }}" placeholder="{{action[1]}}:{{action[2]}}" name="ip_port" disabled>
+				<br><br>
+				<input type="text" value="{{request.date_time }}" placeholder="{{action[3]}} {{action[4]}}" name="date_time" disabled>
+				<br><br>
+                <font color="#fff">Username:</font>
+				<input type="text" value="{{request.form.username }}" placeholder="" name="username">
+				<br><br>
+                <font color="#fff">Password:</font>
+				<input type="password" value="{{request.form.password }}" placeholder="" name="password">
+				<br><br>
+				<input type="submit" class="btn btn-primary btn-large btn-block" value="Agendar">
+			</div>
+		</form>
+
+	</div>
+</div>
+<script type="text/javascript" src="{{ url_for('static', filename = 'js/modal.js') }}"></script>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,40 @@
+<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+{% block body %}
+{% if session['logged_in'] %}
+<div class="container-fluid" align="center" style="min-height:100%">
+	<font color="Aqua">Usuário já está logado<h3></h3></font>
+	<a href="{{ url_for('dashboard') }}"><font color="Lime">Retornar ao Dashboard</font></a>
+</div>
+{% else %}
+
+<form action="/login" method="POST">
+<div class="login">
+<div class="login-screen">
+<div class="app-title">
+<h1>Login</h1>
+</div>
+<div class="login-form">
+<div class="control-group">
+				<input type="text" class="login-field" value="{{request.form.username }}" placeholder="username" name="username">
+<label class="login-field-icon fui-user" for="login-name"></label></div>
+<div class="control-group">
+				<input type="password" class="login-field" value="{{request.form.password }}" placeholder="password" name="password">
+<label class="login-field-icon fui-lock" for="login-pass"></label></div>
+<input type="submit" value="Login" class="btn btn-primary btn-large btn-block">
+
+</div>
+</div>
+</div>
+</form>
+
+<div class="container-fluid" align="center" style="min-height:100%">
+{% with messages = get_flashed_messages() %}
+	{% if messages %}
+		{% for message in messages %}
+	<font color="Crimson"> <h3>{{ message }}</h3></font>
+		{% endfor %}
+	{% endif %}
+{% endwith %}
+</div>
+{% endif %}
+{% endblock %}
