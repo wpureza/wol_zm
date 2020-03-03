@@ -2,10 +2,10 @@ from netmiko import ConnectHandler
 import re
 
 mikrotik = {'device_type': 'mikrotik_routeros',
-            'host': 'vpn3.zema.com',
+            'host': '',
             'port': '8297',
-            'username': 'admin',
-            'password': 'gnu@lnx'}
+            'username': '',
+            'password': ''}
 
 
 mac_table = []
